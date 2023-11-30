@@ -11,7 +11,7 @@ const TripHightLights = ({ hightLights }: TripHightLightsProps) => {
 
       <div className="flex flex-wrap gap-y-3">
         {hightLights.map((hightLights, index) => (
-          <div className="flex items-center gap-2 w-1/2">
+          <div key={hightLights} className="flex items-center gap-2 w-1/2">
             <FcOk />
 
             <p className="text-grayPrimary text-xs">{hightLights}</p>
