@@ -2,9 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
-
 yarn dev
+
+<h3>💻 &nbsp;Front-end:</h3>
+
+![TypeScript](https://img.shields.io/badge/-TypeScript-333333?style=flat&logo=typescript&logoColor=2D79C7)
+![Next](https://img.shields.io/badge/-NEXT-333333?style=flat&logo=Next)
+![Postgreesql](https://img.shields.io/badge/-Postgresql-333333?style=flat&logo=postgresql)
 
 ![image](https://github.com/Pedrolopes041/Projeto_2U/assets/97959058/7c338cf6-9285-4496-aee0-e6da31c77e41)
 
