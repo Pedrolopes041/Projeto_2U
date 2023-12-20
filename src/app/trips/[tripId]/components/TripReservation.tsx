@@ -95,6 +95,10 @@ const TripReservation = ({
             value: true,
             message: "Número de hóspedes é obrigatório",
           },
+          max: {
+            value: maxGuests,
+            message: `Número de hóspedes (max: ${maxGuests})`
+          },
         })}
         className="mt-4"
         placeholder={`Número de Hóspedes (max: ${maxGuests})`}
@@ -102,6 +106,7 @@ const TripReservation = ({
         error={!!errors?.guest}
         //colocando a mensagem de error
         errorMessage={errors?.guest?.message}
+        type="number"
       />
       <div className="flex justify-between mt-3">
         <p className="font-medium text-sm text-primaryDarker">Total: </p>
