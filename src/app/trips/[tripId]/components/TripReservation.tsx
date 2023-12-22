@@ -5,8 +5,10 @@ import DatePicker from "@/components/DatePicker";
 import { differenceInDays } from "date-fns";
 import Input from "@/components/Input";
 import { Controller, useForm } from "react-hook-form";
+//import { useRouter } from "next/navigation";
 
 interface TripReservationProps {
+  tripId: string;
   tripEndDate: Date;
   tripStarDate: Date;
   maxGuests?: number;
@@ -24,7 +26,8 @@ const TripReservation = ({
   tripStarDate,
   tripEndDate,
   maxGuests,
-  pricePerDay
+  pricePerDay,
+  tripId,
 }: TripReservationProps) => {
   //passando a tipagem da validação para o form
   const {
@@ -35,12 +38,31 @@ const TripReservation = ({
     watch,
   } = useForm<TripResrvationForm>();
 
-  const handleSubmitPress = (data: any) => {
-    console.log({ data });
+  //const router = useRouter();
+
+  const handleSubmitPress = async (data: TripResrvationForm) => {
+    const response = await fetch("/api/trips/check", {
+      method: "POST",
+      body: Buffer.from(
+        JSON.stringify({
+          starDate: data.starDate,
+          endDate: data.endDate,
+          tripId,
+        })
+      )
+    })
+
+    const res = await response.json();
+    console.log({res});
+
+    /*
+    router.push(`/trips/confirmation?startDate=${data.starDate?.toISOString()}endDate=${data.endDate?.toISOString()}guest=${data.guest}`)
+    */
   };
 
   const stardate = watch('starDate')
   const enddate = watch('endDate')
+
 
   return (
     <div className="flex flex-col px-5">
