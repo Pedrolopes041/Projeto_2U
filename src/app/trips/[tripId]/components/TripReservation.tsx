@@ -5,25 +5,25 @@ import DatePicker from "@/components/DatePicker";
 import { differenceInDays } from "date-fns";
 import Input from "@/components/Input";
 import { Controller, useForm } from "react-hook-form";
-//import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface TripReservationProps {
   tripId: string;
   tripEndDate: Date;
-  tripStarDate: Date;
+  tripStartDate: Date;
   maxGuests?: number;
   pricePerDay: number;
 }
 
 //tipando a validação
 interface TripResrvationForm {
-  guest: number;
-  starDate: Date | null;
+  guests: number;
+  startDate: Date | null;
   endDate: Date | null;
 }
 
 const TripReservation = ({
-  tripStarDate,
+  tripStartDate,
   tripEndDate,
   maxGuests,
   pricePerDay,
@@ -38,14 +38,14 @@ const TripReservation = ({
     watch,
   } = useForm<TripResrvationForm>();
 
-  //const router = useRouter();
+  const router = useRouter();
 
   const handleSubmitPress = async (data: TripResrvationForm) => {
     const response = await fetch("/api/trips/check", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
-          starDate: data.starDate,
+          startDate: data.startDate,
           endDate: data.endDate,
           tripId,
         })
@@ -55,12 +55,13 @@ const TripReservation = ({
     const res = await response.json();
     console.log({res});
 
-    /*
-    router.push(`/trips/confirmation?startDate=${data.starDate?.toISOString()}endDate=${data.endDate?.toISOString()}guest=${data.guest}`)
-    */
+    router.push(
+      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${data.guests}`
+    );
+
   };
 
-  const stardate = watch('starDate')
+  const stardate = watch('startDate')
   const enddate = watch('endDate')
 
 
@@ -68,7 +69,7 @@ const TripReservation = ({
     <div className="flex flex-col px-5">
       <div className="flex gap-4 ">
         <Controller
-          name="starDate"
+          name="startDate"
           rules={{
             required: {
               value: true,
@@ -78,13 +79,13 @@ const TripReservation = ({
           control={control}
           render={({ field }) => (
             <DatePicker
-              error={!!errors?.starDate}
-              errorMessage={errors?.starDate?.message}
+              error={!!errors?.startDate}
+              errorMessage={errors?.startDate?.message}
               onChange={field.onChange}
               selected={field.value}
               className="w-full"
               placeholderText="Data de Início"
-              minDate={tripStarDate}
+              minDate={tripStartDate}
             />
           )}
         />
@@ -106,28 +107,28 @@ const TripReservation = ({
               selected={field.value}
               className="w-full"
               placeholderText="Data final"
-              minDate={stardate ?? tripStarDate}
+              minDate={stardate ?? tripStartDate}
             />
           )}
         />
       </div>
       <Input
-        {...register("guest", {
+        {...register("guests", {
           required: {
             value: true,
             message: "Número de hóspedes é obrigatório",
           },
           max: {
-            value: maxGuests,
+            value: Number(maxGuests),
             message: `Número de hóspedes (max: ${maxGuests})`
           },
         })}
         className="mt-4"
         placeholder={`Número de Hóspedes (max: ${maxGuests})`}
         // colocando o filedset vermelho
-        error={!!errors?.guest}
+        error={!!errors?.guests}
         //colocando a mensagem de error
-        errorMessage={errors?.guest?.message}
+        errorMessage={errors?.guests?.message}
         type="number"
       />
       <div className="flex justify-between mt-3">
