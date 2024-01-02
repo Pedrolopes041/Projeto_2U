@@ -1,6 +1,8 @@
+import { BounceLoader } from "react-spinners";
+
 const Loading = () =>{
     return(
-        <h1>Carregando</h1>
+        <BounceLoader className="flex flex-col justify-center items-center" color="#312A4F" />
     )
 
 }

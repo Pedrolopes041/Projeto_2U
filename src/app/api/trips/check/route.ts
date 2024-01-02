@@ -5,8 +5,6 @@ import { differenceInDays } from "date-fns";
 export async function POST(request: Request) {
   const req = await request.json();
 
-  console.log(req);
-
   const trip = await prisma.trip.findUnique({
     where: {
       id: req.tripId,
