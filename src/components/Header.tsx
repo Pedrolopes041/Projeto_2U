@@ -55,7 +55,6 @@ const Header = () => {
               <Link href="/my-trips">
                 <button
                   className="text-primary pt-2 text-sm font-semibold"
-                  onClick={handleLogoutClick}
                 >
                   Minhas viagens
                 </button>
