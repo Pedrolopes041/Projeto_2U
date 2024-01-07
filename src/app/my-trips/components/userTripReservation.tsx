@@ -12,9 +12,13 @@ interface UserReservationItemProps {
   reservation: Prisma.TripReservationGetPayload<{
     include: { trip: true };
   }>;
+  fetcheReservation: () => void;
 }
 
-const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
+const UserReservationItem = ({
+  reservation,
+  fetcheReservation,
+}: UserReservationItemProps) => {
   const { trip } = reservation;
 
   const router = useRouter();
@@ -32,7 +36,7 @@ const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
       position: "bottom-center",
     });
 
-    router.replace("/");
+    fetcheReservation();
   };
 
   return (

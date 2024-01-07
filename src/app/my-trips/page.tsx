@@ -41,7 +41,7 @@ const MyTrips = () => {
     <div className="container mx-auto p-5">
       <h1 className="font-semibold text-primaryDarker text-xl">Minhas Viagens</h1>
       {reservations.length > 0 ? (
-        reservations?.map((reservation) => <UserReservationItem key={reservation.id} reservation={reservation} />)
+        reservations?.map((reservation) => <UserReservationItem fetcheReservation={fetchReservations} key={reservation.id} reservation={reservation} />)
       ) : (
         <div className="flex flex-col">
           <p className="mt-2 font-medium text-primaryDarker">Você ainda não tem nenhuma reserva! =(</p>
