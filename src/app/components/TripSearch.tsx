@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import CurrencyInput from "@/components/CurrencyInput";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -14,6 +15,9 @@ interface TripSearchForm {
 }
 
 const TripSearch = () => {
+
+  const router = useRouter();
+
   const {
     control,
     register,
@@ -22,7 +26,7 @@ const TripSearch = () => {
   } = useForm<TripSearchForm>();
 
   const onSubmit = (data: TripSearchForm) => {
-    console.log({ data });
+    router.push(`/trips/search?text=${data.text}&starDate=${data.starDate}&budget=${data.budget}`)
   };
 
   return (
