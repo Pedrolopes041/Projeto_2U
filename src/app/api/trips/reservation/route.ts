@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const req = await request.json();
 
   const { startDate, endDate, userId, tripId, totalPaid, guests } = req;
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
   });
 
   if (!trip) {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         error: {
           code: "TRIP_NOT_FOUND",
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
     },
   });
 
-  return new Response(
+  return new NextResponse(
     JSON.stringify({
       success: true,
     }),
