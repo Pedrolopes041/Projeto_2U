@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params: { userId } }: { params: { userId: string } }) {
+export async function GET(
+  request: Request,
+  { params: { userId } }: { params: { userId: string } }
+) {
   const { searchParams } = new URL(request.url);
 
   console.log({ userId });
@@ -9,7 +12,7 @@ export async function GET(request: NextRequest, { params: { userId } }: { params
   if (!userId) {
     return new NextResponse(
       JSON.stringify({
-        message:"Missing userId",
+        message: "Missing userId",
       }),
       { status: 400 }
     );
