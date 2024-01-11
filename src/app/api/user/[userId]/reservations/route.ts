@@ -7,12 +7,12 @@ export async function GET(request: NextRequest, { params: { userId } }: { params
   console.log({ userId });
 
   if (!userId) {
-    return {
-      status: 400,
-      body: {
-        message: "Missing userId",
-      },
-    };
+    return new NextResponse(
+      JSON.stringify({
+        message:"Missing userId",
+      }),
+      { status: 400 }
+    );
   }
 
   const reservations = await prisma.tripReservation.findMany({

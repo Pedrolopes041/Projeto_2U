@@ -1,15 +1,15 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(_request: NextRequest, { params: { reservationId } }: { params: { reservationId: string } }) {
+export async function DELETE(request: NextRequest, { params: { reservationId } }: { params: { reservationId: string } }) {
     
   if (!reservationId) {
-    return {
-      status: 400,
-      body: {
-        message: "Missing reservationId",
-      },
-    };
+    return new NextResponse(
+      JSON.stringify({
+        message:"Missing reservationId",
+      }),
+      { status: 400 }
+    );
   }
 
   await prisma.tripReservation.delete({
@@ -18,5 +18,5 @@ export async function DELETE(_request: NextRequest, { params: { reservationId } 
     },
   });
 
-  return NextResponse.json({status: 200});
+  return new NextResponse("Unauthorized", { status: 200 });
 }
