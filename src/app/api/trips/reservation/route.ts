@@ -1,35 +1,42 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === 'POST') {
-    const { startDate, endDate, userId, tripId, totalPaid, guests } = req.body;
+export async function POST(request: NextRequest) {
+  const req = await request.json();
 
-    const trip = await prisma.trip.findUnique({
-      where: {
-        id: tripId,
-      },
-    });
+  const { startDate, endDate, userId, tripId, totalPaid, guests } = req;
 
-    if (!trip) {
-      res.status(404).json({ error: { code: "TRIP_NOT_FOUND" } });
-      return;
-    }
+  const trip = await prisma.trip.findUnique({
+    where: {
+      id: tripId,
+    },
+  });
 
-    await prisma.tripReservation.create({
-      data: {
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        userId,
-        tripId,
-        totalPaid,
-        guests,
-      },
-    });
-
-    res.status(201).json({ success: true });
+  if (!trip) {
+    return new NextResponse(
+      JSON.stringify({
+        error: {
+          code: "TRIP_NOT_FOUND",
+        },
+      })
+    );
   }
+
+  await prisma.tripReservation.create({
+    data: {
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      userId,
+      tripId,
+      totalPaid,
+      guests,
+    },
+  });
+
+  return new NextResponse(
+    JSON.stringify({
+      success: true,
+    }),
+    { status: 201 }
+  );
 }
