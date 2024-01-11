@@ -71,11 +71,12 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
         position: "bottom-center",
       });
     }
+    
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
     });
 
-    router.push("/");
+    //router.push("/");
   };
 
   const startDate = new Date(searchParams.get("startDate") as string);
