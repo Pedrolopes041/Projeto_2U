@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const req = await request.json();
@@ -13,7 +12,7 @@ export async function POST(request: Request) {
   });
 
   if (!trip) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "TRIP_NOT_FOUND",
@@ -33,7 +32,7 @@ export async function POST(request: Request) {
     },
   });
 
-  return new NextResponse(
+  return new Response(
     JSON.stringify({
       success: true,
     }),
