@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
 import { differenceInDays } from "date-fns";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   const req = await request.json();
 
   const trip = await prisma.trip.findUnique({
@@ -25,7 +24,7 @@ export async function POST(request: NextRequest) {
   });
 
   if (reservations.length > 0) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "TRIP_ALREADY_RESERVED",
@@ -34,9 +33,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!trip) return null;
+  if (!trip) {
+    return new Response(
+      JSON.stringify({
+        error: {
+          code: "TRIP_NOT_FOUND",
+        },
+      })
+    );
+  }
 
-  return new NextResponse(
+  return new Response(
     JSON.stringify({
       success: true,
       trip,
