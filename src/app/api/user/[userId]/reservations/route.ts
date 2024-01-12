@@ -9,7 +9,6 @@ export async function GET(
 
   console.log({ userId });
 
-  /*
   if (!userId) {
     return new NextResponse(
       JSON.stringify({
@@ -18,8 +17,8 @@ export async function GET(
       { status: 400 }
     );
   }
-  */
 
+  /*
   if (!userId) {
     return {
       status: 400,
@@ -28,6 +27,7 @@ export async function GET(
       },
     };
   }
+  */
 
   const reservations = await prisma.tripReservation.findMany({
     where: {

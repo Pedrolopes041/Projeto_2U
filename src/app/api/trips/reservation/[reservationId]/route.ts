@@ -5,8 +5,6 @@ export async function DELETE(
   _request: Request,
   { params: { reservationId } }: { params: { reservationId: string } }
 ) {
-
-  /*
   if (!reservationId) {
     return new NextResponse(
       JSON.stringify({
@@ -15,8 +13,8 @@ export async function DELETE(
       { status: 400 }
     );
   }
-  */
 
+  /*
   if (!reservationId) {
     return {
       status: 400,
@@ -25,6 +23,7 @@ export async function DELETE(
       },
     };
   }
+  */
 
   const reservation = await prisma.tripReservation.delete({
     where: {
