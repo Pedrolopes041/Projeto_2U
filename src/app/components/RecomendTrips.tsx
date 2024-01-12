@@ -8,11 +8,6 @@ const getTrips = async () => {
 };
 
 const RecomendTrips = async () => {
-  /*
-  const data = await fetch("http://localhost:3000/hello").then((res) =>
-    res.json()
-  ); // chamando a rota(api) e convertendo ela em json
-  */
 
   const data = await getTrips();
 
