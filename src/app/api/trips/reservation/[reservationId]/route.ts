@@ -6,7 +6,7 @@ export async function DELETE(
   { params: { reservationId } }: { params: { reservationId: string } }
 ) {
 
-  //possivel error
+  /*
   if (!reservationId) {
     return new NextResponse(
       JSON.stringify({
@@ -14,6 +14,16 @@ export async function DELETE(
       }),
       { status: 400 }
     );
+  }
+  */
+
+  if (!reservationId) {
+    return {
+      status: 400,
+      body: {
+        message: "Missing reservationId",
+      },
+    };
   }
 
   const reservation = await prisma.tripReservation.delete({

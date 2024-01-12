@@ -9,7 +9,7 @@ export async function GET(
 
   console.log({ userId });
 
-  //possivel erro
+  /*
   if (!userId) {
     return new NextResponse(
       JSON.stringify({
@@ -17,6 +17,16 @@ export async function GET(
       }),
       { status: 400 }
     );
+  }
+  */
+
+  if (!userId) {
+    return {
+      status: 400,
+      body: {
+        message: "Missing userId",
+      },
+    };
   }
 
   const reservations = await prisma.tripReservation.findMany({
