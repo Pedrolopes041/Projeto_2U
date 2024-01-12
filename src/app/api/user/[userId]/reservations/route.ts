@@ -9,6 +9,7 @@ export async function GET(
 
   console.log({ userId });
 
+  //possivel erro
   if (!userId) {
     return new NextResponse(
       JSON.stringify({
