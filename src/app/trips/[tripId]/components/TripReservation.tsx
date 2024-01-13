@@ -41,7 +41,7 @@ const TripReservation = ({
 
   const router = useRouter();
 
-  const onSubmit = async (data: TripResrvationForm) => {
+  const HandleSubmitPress = async (data: TripResrvationForm) => {
     const response = await fetch("/api/trips/check", {
       method: "POST",
       body: Buffer.from(
@@ -54,6 +54,7 @@ const TripReservation = ({
     });
 
     const res = await response.json();
+    console.log({ res });
 
     if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
       setError("startDate", {
@@ -64,20 +65,6 @@ const TripReservation = ({
       return setError("endDate", {
         type: "manual",
         message: "Esta data já está reservada.",
-      });
-    }
-
-    if (res?.error?.code === "INVALID_START_DATE") {
-      return setError("startDate", {
-        type: "manual",
-        message: "Data inválida.",
-      });
-    }
-
-    if (res?.error?.code === "INVALID_END_DATE") {
-      return setError("endDate", {
-        type: "manual",
-        message: "Data inválida.",
       });
     }
 
@@ -168,7 +155,7 @@ const TripReservation = ({
 
       <div className="pb-10 border-b border-grayLighter w-full">
         <Button
-          onClick={() => handleSubmit(onSubmit)()}
+          onClick={() => handleSubmit(HandleSubmitPress)()}
           className="mt-3 w-full"
         >
           Reservar agora
