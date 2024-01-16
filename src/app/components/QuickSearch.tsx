@@ -7,36 +7,36 @@ const QuickSearch = () => {
     <div className="container mx-auto p-5">
       <div className="flex items-center">
         <div className="w-full h-[1px] bg-grayLighter"></div>
-        <h2 className="px-5 font-medium text-grayPrimary whitespace-nowrap">
+        <h2 className="px-5 font-medium text-grayPrimary whitespace-nowrap lg:text-lg">
           Tente pesquisar por
         </h2>
         <div className="w-full h-[1px] bg-grayLighter"></div>
       </div>
 
-      <div className="flex w-full justify-between mt-5 ">
+      <div className="flex w-full justify-between mt-5 lg:justify-center lg:gap-60">
         <div className="flex flex-col items-center gap-1">
-          <Link href={"/trips/search?text=hotel"}>
+          <Link href={"/trips/search?text=hotel"} className="flex flex-col items-center">
             <Image width={35} height={35} src="/hotel-icon.png" alt="Hotel" />
             <p className="text-sm lg:text-base text-grayPrimary">Hotel</p>
           </Link>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <Link href={"/trips/search?text=fazenda"}>
+          <Link href={"/trips/search?text=fazenda"} className="flex flex-col items-center">
             <Image width={35} height={35} src="/farm-icon.png" alt="Fazenda" />
             <p className="text-sm lg:text-base text-grayPrimary">Fazenda</p>
           </Link>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <Link href={"/trips/search?text=Chalé"}>
+          <Link href={"/trips/search?text=Chalé"} className="flex flex-col items-center">
             <Image width={35} height={35} src="/cottage-icon.png" alt="Chalé" />
             <p className="text-sm lg:text-base text-grayPrimary">Chalé</p>
           </Link>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <Link href={"/trips/search?text=pousada"}>
+          <Link href={"/trips/search?text=pousada"} className="flex flex-col items-center">
             <Image width={35} height={35} src="/inn-icon.png" alt="Pousada" />
             <p className="text-sm lg:text-base text-grayPrimary">Pousada</p>
           </Link>
