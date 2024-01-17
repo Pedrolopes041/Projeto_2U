@@ -17,20 +17,38 @@ const getTripsDetails = async (tripId: string) => {
 const TripDetails = async ({ params }: { params: { tripId: string } }) => {
   const trip = await getTripsDetails(params.tripId);
 
-  if(!trip) return null 
+  if (!trip) return null;
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto lg:px-40 ">
       {/* aqui é a imagem */}
-      <TripHeader  trip={trip}/>
-      {/* aqui é o inputs */}
-      <TripReservation tripId ={trip.id} pricePerDay={trip.pricePerDay as any} maxGuests={trip.maxGuests} tripStartDate={trip.startDate} tripEndDate={trip.endDate}/>
-      {/*Descrição */}
-      <TripAbout description={trip.description}/>
-      {/*Destaques */}
-      <TripHightLights hightLights={trip.highlights}/>
+      <TripHeader trip={trip} />
+
+      <div className="flex flex-col lg:flex-row lg:gap-20">
+        <div className="lg:order-2">
+          {/* aqui é o inputs */}
+          <TripReservation
+            tripId={trip.id}
+            pricePerDay={trip.pricePerDay as any}
+            maxGuests={trip.maxGuests}
+            tripStartDate={trip.startDate}
+            tripEndDate={trip.endDate}
+          />
+        </div>
+
+        <div className="lg:order-1">
+          {/*Descrição */}
+          <TripAbout description={trip.description} />
+          {/*Destaques */}
+          <TripHightLights hightLights={trip.highlights} />
+        </div>
+      </div>
+
       {/*Localização */}
-      <TripLocation location={trip.location} locationDescription={trip.locationDescription}/>
+      <TripLocation
+        location={trip.location}
+        locationDescription={trip.locationDescription}
+      />
     </div>
   );
 };
