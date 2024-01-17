@@ -20,7 +20,7 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
   if (!trip) return null;
 
   return (
-    <div className="container mx-auto lg:px-40 ">
+    <div className="container mx-auto lg:px-40 lg:pt-10">
       {/* aqui é a imagem */}
       <TripHeader trip={trip} />
 
