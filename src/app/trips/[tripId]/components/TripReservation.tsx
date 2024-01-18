@@ -6,6 +6,7 @@ import { differenceInDays } from "date-fns";
 import Input from "@/components/Input";
 import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 
 interface TripReservationProps {
   tripId: string;
@@ -41,6 +42,8 @@ const TripReservation = ({
 
   const router = useRouter();
 
+  const { status } = useSession();
+
   const HandleSubmitPress = async (data: TripResrvationForm) => {
     const response = await fetch("/api/trips/check", {
       method: "POST",
@@ -68,11 +71,18 @@ const TripReservation = ({
       });
     }
 
-    router.push(
-      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
-        data.guests
-      }`
-    );
+    if (status === "authenticated") {
+      return router.push(
+        `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
+          data.guests
+        }`
+      );
+    }
+
+    if (status === "unauthenticated") {
+      signIn();
+      console.log(signIn)
+    }
   };
 
   const stardate = watch("startDate");
